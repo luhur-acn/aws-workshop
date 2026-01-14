@@ -16,15 +16,18 @@ let profile = {
 };
 
 const PORT = process.env.PORT || 5000;
-const ALLOWED_ORIGINS = process.env.ALLOWED_ORIGINS || 'http://localhost:3000,http://localhost';
 
-// CORS helper
+// CORS helper - Allow requests from any origin (for workshop purposes)
+// In production, restrict to specific origins
 function setCorsHeaders(res, origin) {
-  if (ALLOWED_ORIGINS.split(',').includes(origin)) {
+  if (origin) {
     res.setHeader('Access-Control-Allow-Origin', origin);
+  } else {
+    res.setHeader('Access-Control-Allow-Origin', '*');
   }
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Max-Age', '3600');
 }
 
 const server = http.createServer((req, res) => {
