@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Profile</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      max-width: 500px;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 40px 30px;
+      text-align: center;
+      color: white;
+    }
+
+    .avatar {
+      font-size: 80px;
+      margin-bottom: 20px;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: bold;
+      background: rgba(255, 255, 255, 0.3);
+      margin-bottom: 15px;
+    }
+
+    .status-badge.online {
+      background: rgba(76, 175, 80, 0.6);
+      color: white;
+    }
+
+    .status-badge.offline {
+      background: rgba(244, 67, 54, 0.6);
+      color: white;
+    }
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+
+    .title {
+      font-size: 16px;
+      opacity: 0.9;
+      margin-bottom: 20px;
+    }
+
+    .content {
+      padding: 40px 30px;
+    }
+
+    .bio {
+      font-size: 16px;
+      color: #333;
+      line-height: 1.6;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .info-group {
+      margin-bottom: 20px;
+    }
+
+    .info-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #999;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    .info-value {
+      font-size: 15px;
+      color: #333;
+      word-break: break-all;
+    }
+
+    .links {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+
+    .social-link {
+      flex: 1;
+      padding: 12px;
+      background: #f5f5f5;
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      color: #667eea;
+      font-weight: 600;
+      font-size: 13px;
+      transition: all 0.3s;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .social-link:hover {
+      background: #667eea;
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .likes-section {
+      padding-top: 20px;
+      border-top: 1px solid #eee;
+      text-align: center;
+    }
+
+    .likes-counter {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .likes-number {
+      font-size: 32px;
+      font-weight: 700;
+      color: #667eea;
+    }
+
+    .likes-text {
+      font-size: 14px;
+      color: #666;
+    }
+
+    .like-btn {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .like-btn:hover {
+      transform: scale(1.02);
+      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+    }
+
+    .like-btn:active {
+      transform: scale(0.98);
+    }
+
+    .like-btn.liked {
+      background: #4caf50;
+    }
+
+    .visitor-name {
+      margin-bottom: 15px;
+    }
+
+    .visitor-name input {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid #e0e0e0;
+      border-radius: 6px;
+      font-size: 14px;
+      transition: border-color 0.3s;
+    }
+
+    .visitor-name input:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+
+    .message {
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 13px;
+      text-align: center;
+      display: none;
+    }
+
+    .message.success {
+      background: #d4edda;
+      color: #155724;
+      display: block;
+    }
+
+    .message.error {
+      background: #f8d7da;
+      color: #721c24;
+      display: block;
+    }
+
+    .likers-list {
+      margin-top: 20px;
+      padding-top: 15px;
+      border-top: 1px solid #f0f0f0;
+      max-height: 120px;
+      overflow-y: auto;
+    }
+
+    .likers-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #999;
+      margin-bottom: 10px;
+    }
+
+    .liker-badge {
+      display: inline-block;
+      background: #f0f0f0;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      color: #333;
+      margin-bottom: 8px;
+      margin-right: 6px;
+    }
+
+    .edit-mode {
+      background: #f9f9f9;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      display: none;
+    }
+
+    .edit-mode.active {
+      display: block;
+    }
+
+    .edit-mode input,
+    .edit-mode textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 2px solid #e0e0e0;
+      border-radius: 6px;
+      font-size: 14px;
+      font-family: inherit;
+    }
+
+    .edit-mode textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .edit-mode input:focus,
+    .edit-mode textarea:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+
+    .edit-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .edit-buttons button {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .edit-save {
+      background: #667eea;
+      color: white;
+    }
+
+    .edit-save:hover {
+      background: #5568d3;
+    }
+
+    .edit-cancel {
+      background: #e0e0e0;
+      color: #333;
+    }
+
+    .edit-cancel:hover {
+      background: #d0d0d0;
+    }
+
+    .edit-toggle {
+      background: none;
+      border: none;
+      color: #667eea;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 0;
+      margin-top: 10px;
+    }
+
+    .edit-toggle:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      padding: 15px;
+      text-align: center;
+      font-size: 11px;
+      color: #999;
+      background: #f9f9f9;
+    }
+
+    @media (max-width: 600px) {
+      .header {
+        padding: 30px 20px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .avatar {
+        font-size: 60px;
+      }
+
+      .likes-number {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="avatar" id="avatar">👤</div>
+      <span class="status-badge online" id="statusBadge">Checking...</span>
+      <h1 id="profileName">Your Name</h1>
+      <p class="title" id="profileTitle">Full Stack Developer</p>
+    </div>
+
+    <div class="content">
+      <p class="bio" id="profileBio">Loading profile...</p>
+
+      <div class="edit-mode" id="editMode">
+        <div class="info-group">
+          <input type="text" id="editName" placeholder="Your Name">
+        </div>
+        <div class="info-group">
+          <input type="text" id="editTitle" placeholder="Your Title">
+        </div>
+        <div class="info-group">
+          <textarea id="editBio" placeholder="Your bio..."></textarea>
+        </div>
+        <div class="info-group">
+          <input type="email" id="editEmail" placeholder="Email">
+        </div>
+        <div class="info-group">
+          <input type="url" id="editGithub" placeholder="GitHub URL">
+        </div>
+        <div class="info-group">
+          <input type="url" id="editLinkedin" placeholder="LinkedIn URL">
+        </div>
+        <div class="edit-buttons">
+          <button class="edit-save" onclick="saveProfile()">Save</button>
+          <button class="edit-cancel" onclick="cancelEdit()">Cancel</button>
+        </div>
+      </div>
+
+      <div class="info-group">
+        <span class="info-label">📧 Email</span>
+        <div class="info-value" id="profileEmail">Loading...</div>
+      </div>
+
+      <div class="info-group">
+        <span class="info-label">🔗 Links</span>
+        <div class="links">
+          <a href="#" class="social-link" id="githubLink" target="_blank">GitHub</a>
+          <a href="#" class="social-link" id="linkedinLink" target="_blank">LinkedIn</a>
+        </div>
+      </div>
+
+      <button class="edit-toggle" onclick="toggleEdit()">✏️ Edit Profile</button>
+
+      <div class="likes-section">
+        <div class="likes-counter">
+          <span class="likes-number" id="likeCount">0</span>
+          <span class="likes-text">people like this profile</span>
+        </div>
+
+        <div class="visitor-name">
+          <input type="text" id="visitorName" placeholder="Enter your name (optional)">
+        </div>
+
+        <button class="like-btn" id="likeBtn" onclick="toggleLike()">❤️ Like This Profile</button>
+
+        <div class="message" id="message"></div>
+
+        <div class="likers-list" id="likersList"></div>
+      </div>
+    </div>
+
+    <footer>
+      AWS Workshop - Deployed on EC2 | Personal Profile
+    </footer>
+  </div>
+
+  <script>
+    const API_URL = window.location.hostname === 'localhost' 
+      ? 'http://localhost:5000'
+      : window.location.origin;
+
+    let currentProfile = null;
+    let hasLiked = false;
+    let visitorName = '';
+
+    // Check backend status
+    async function checkStatus() {
+      try {
+        const res = await fetch(`${API_URL}/api/health`);
+        if (res.ok) {
+          updateStatusBadge(true);
+        }
+      } catch (err) {
+        updateStatusBadge(false);
+      }
+    }
+
+    function updateStatusBadge(online) {
+      const badge = document.getElementById('statusBadge');
+      if (online) {
+        badge.textContent = '🟢 Online';
+        badge.className = 'status-badge online';
+      } else {
+        badge.textContent = '🔴 Offline';
+        badge.className = 'status-badge offline';
+      }
+    }
+
+    // Load profile
+    async function loadProfile() {
+      try {
+        const res = await fetch(`${API_URL}/api/profile`);
+        const result = await res.json();
+        
+        if (result.success) {
+          currentProfile = result.data;
+          updateProfileDisplay();
+        }
+      } catch (err) {
+        showMessage('Failed to load profile', 'error');
+        console.error(err);
+      }
+    }
+
+    function updateProfileDisplay() {
+      document.getElementById('profileName').textContent = currentProfile.name || 'Your Name';
+      document.getElementById('profileTitle').textContent = currentProfile.title || 'Full Stack Developer';
+      document.getElementById('profileBio').textContent = currentProfile.bio || 'Loading...';
+      document.getElementById('profileEmail').textContent = currentProfile.email || 'not provided';
+      document.getElementById('likeCount').textContent = currentProfile.likes || 0;
+
+      // Update links
+      const githubLink = document.getElementById('githubLink');
+      const linkedinLink = document.getElementById('linkedinLink');
+      
+      if (currentProfile.github) {
+        githubLink.href = currentProfile.github;
+        githubLink.style.display = 'inline-block';
+      } else {
+        githubLink.style.display = 'none';
+      }
+
+      if (currentProfile.linkedin) {
+        linkedinLink.href = currentProfile.linkedin;
+        linkedinLink.style.display = 'inline-block';
+      } else {
+        linkedinLink.style.display = 'none';
+      }
+
+      // Update likers list
+      updateLikersList();
+    }
+
+    function updateLikersList() {
+      const likersList = document.getElementById('likersList');
+      if (currentProfile.likedBy && currentProfile.likedBy.length > 0) {
+        likersList.innerHTML = `
+          <div class="likers-label">❤️ Liked by:</div>
+          <div>${currentProfile.likedBy.map(name => 
+            `<span class="liker-badge">${escapeHtml(name)}</span>`
+          ).join('')}</div>
+        `;
+      } else {
+        likersList.innerHTML = '<div class="likers-label">Be the first to like this profile!</div>';
+      }
+    }
+
+    // Toggle like
+    async function toggleLike() {
+      visitorName = (document.getElementById('visitorName').value || 'Anonymous').trim();
+      
+      if (hasLiked) {
+        await unlikeProfile();
+      } else {
+        await likeProfile();
+      }
+    }
+
+    async function likeProfile() {
+      try {
+        const res = await fetch(`${API_URL}/api/profile/like`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ visitorName }),
+        });
+
+        const result = await res.json();
+        if (result.success) {
+          hasLiked = true;
+          currentProfile.likes = result.data.likes;
+          currentProfile.likedBy.push(visitorName);
+          updateProfileDisplay();
+          updateLikeButton();
+          showMessage(`❤️ ${result.data.message}`, 'success');
+        } else {
+          showMessage(result.error || 'Failed to like', 'error');
+        }
+      } catch (err) {
+        showMessage('Failed to like profile', 'error');
+        console.error(err);
+      }
+    }
+
+    async function unlikeProfile() {
+      try {
+        const res = await fetch(`${API_URL}/api/profile/unlike`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ visitorName }),
+        });
+
+        const result = await res.json();
+        if (result.success) {
+          hasLiked = false;
+          currentProfile.likes = result.data.likes;
+          currentProfile.likedBy = currentProfile.likedBy.filter(name => name !== visitorName);
+          updateProfileDisplay();
+          updateLikeButton();
+          showMessage('💔 You unliked this profile', 'success');
+        } else {
+          showMessage(result.error || 'Failed to unlike', 'error');
+        }
+      } catch (err) {
+        showMessage('Failed to unlike profile', 'error');
+        console.error(err);
+      }
+    }
+
+    function updateLikeButton() {
+      const btn = document.getElementById('likeBtn');
+      if (hasLiked) {
+        btn.textContent = '💔 Unlike This Profile';
+        btn.classList.add('liked');
+      } else {
+        btn.textContent = '❤️ Like This Profile';
+        btn.classList.remove('liked');
+      }
+    }
+
+    // Edit profile
+    function toggleEdit() {
+      const editMode = document.getElementById('editMode');
+      editMode.classList.toggle('active');
+      if (editMode.classList.contains('active')) {
+        loadEditForm();
+      }
+    }
+
+    function loadEditForm() {
+      document.getElementById('editName').value = currentProfile.name || '';
+      document.getElementById('editTitle').value = currentProfile.title || '';
+      document.getElementById('editBio').value = currentProfile.bio || '';
+      document.getElementById('editEmail').value = currentProfile.email || '';
+      document.getElementById('editGithub').value = currentProfile.github || '';
+      document.getElementById('editLinkedin').value = currentProfile.linkedin || '';
+    }
+
+    async function saveProfile() {
+      const updates = {
+        name: document.getElementById('editName').value,
+        title: document.getElementById('editTitle').value,
+        bio: document.getElementById('editBio').value,
+        email: document.getElementById('editEmail').value,
+        github: document.getElementById('editGithub').value,
+        linkedin: document.getElementById('editLinkedin').value,
+      };
+
+      try {
+        const res = await fetch(`${API_URL}/api/profile`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(updates),
+        });
+
+        const result = await res.json();
+        if (result.success) {
+          currentProfile = result.data;
+          updateProfileDisplay();
+          document.getElementById('editMode').classList.remove('active');
+          showMessage('✓ Profile updated successfully!', 'success');
+        }
+      } catch (err) {
+        showMessage('Failed to save profile', 'error');
+        console.error(err);
+      }
+    }
+
+    function cancelEdit() {
+      document.getElementById('editMode').classList.remove('active');
+    }
+
+    // Utilities
+    function showMessage(message, type) {
+      const msgDiv = document.getElementById('message');
+      msgDiv.textContent = message;
+      msgDiv.className = `message ${type}`;
+      setTimeout(() => msgDiv.className = 'message', 4000);
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    // Initialize
+    checkStatus();
+    loadProfile();
+    setInterval(checkStatus, 5000);
+  </script>
+</body>
+</html>
