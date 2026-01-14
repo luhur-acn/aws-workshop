@@ -433,9 +433,14 @@
   </div>
 
   <script>
-    const API_URL = window.location.hostname === 'localhost' 
-      ? 'http://localhost:5000'
-      : window.location.origin;
+    // Determine API URL based on environment
+    const API_URL = (() => {
+      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        return 'http://localhost:5000';
+      }
+      // For deployed instances, use the same hostname but port 5000
+      return `http://${window.location.hostname}:5000`;
+    })();
 
     let currentProfile = null;
     let hasLiked = false;

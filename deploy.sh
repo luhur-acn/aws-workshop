@@ -40,6 +40,7 @@ fi
 echo -e "\n${YELLOW}[3/5] Installing backend dependencies...${NC}"
 cd "$(dirname "$0")/backend"
 npm install
+cd ..
 
 # Step 4: Create systemd service for backend
 echo -e "\n${YELLOW}[4/5] Setting up backend service...${NC}"
@@ -125,8 +126,16 @@ else
   exit 1
 fi
 
-# Get the public IP
-PUBLIC_IP=$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4 2>/dev/null || echo "YOUR_EC2_PUBLIC_IP")
+# Get the public IP (try IMDSv2 first, fall back to IMDSv1)
+PUBLIC_IP=$(curl -s -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600" 2>/dev/null | xargs -I {} curl -s -H "X-aws-ec2-metadata-token: {}" "http://169.254.169.254/latest/meta-data/public-ipv4" 2>/dev/null || curl -s http://169.254.169.254/latest/meta-data/public-ipv4 2>/dev/null || echo "YOUR_EC2_PUBLIC_IP")
+
+# If IP detection failed, try hostname
+if [ "$PUBLIC_IP" = "YOUR_EC2_PUBLIC_IP" ]; then
+  PUBLIC_IP=$(hostname -I | awk '{print $1}')
+  if [ "$PUBLIC_IP" = "127.0.0.1" ] || [ -z "$PUBLIC_IP" ]; then
+    PUBLIC_IP="YOUR_EC2_PUBLIC_IP"
+  fi
+fi
 
 # Print success message
 echo -e "\n${GREEN}================================${NC}"
