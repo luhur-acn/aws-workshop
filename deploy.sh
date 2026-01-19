@@ -59,7 +59,7 @@ WorkingDirectory=$BACKEND_DIR
 ExecStart=/usr/bin/node $BACKEND_DIR/app.js
 Restart=always
 RestartSec=10
-Environment="PORT=5000"
+Environment="PORT=443"
 Environment="NODE_ENV=production"
 
 [Install]

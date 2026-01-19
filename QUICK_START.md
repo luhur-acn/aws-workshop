@@ -42,7 +42,7 @@ chmod +x deploy.sh
 This single command will:
 - ✓ Install Node.js
 - ✓ Install dependencies
-- ✓ Start the backend (port 5000)
+- ✓ Start the backend (port 443)
 - ✓ Start the frontend (port 80)
 
 **Wait 30 seconds for services to start...**
@@ -79,7 +79,7 @@ You should see a beautiful personal profile page! 🎉
 
 ## 🆘 Troubleshooting
 
-### "Connection refused" on port 5000?
+### "Connection refused" on port 443?
 
 Check if the backend is running:
 ```bash
@@ -101,7 +101,7 @@ In AWS Console → Instances → Select your instance → Scroll right to find "
 
 ### Still having issues?
 
-1. Check security group allows ports 80 and 5000
+1. Check security group allows ports 80 and 443
 2. Verify instance is running (green status)
 3. Wait 2-3 minutes for services to fully start
 4. Try restarting services: `sudo systemctl restart workshop-backend.service`

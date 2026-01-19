@@ -29,7 +29,7 @@ fi
 
 # Start backend
 echo ""
-echo "🚀 Starting backend on port 5000..."
+echo "🚀 Starting backend on port 443..."
 node app.js &
 BACKEND_PID=$!
 
@@ -47,23 +47,23 @@ echo "✓ Backend is running (PID: $BACKEND_PID)"
 # Test health endpoint
 echo ""
 echo "🔍 Testing health endpoint..."
-HEALTH=$(curl -s http://localhost:5000/api/health)
+HEALTH=$(curl -s http://localhost:443/api/health)
 echo "Response: $HEALTH"
 
 # Test todos endpoint
 echo ""
 echo "🔍 Testing todos endpoint..."
-TODOS=$(curl -s http://localhost:5000/api/todos)
+TODOS=$(curl -s http://localhost:443/api/todos)
 echo "Response: $TODOS"
 
 # Open frontend
 echo ""
-echo "📱 Opening frontend at http://localhost:3000"
+echo "📱 Opening frontend at http://localhost:80"
 echo "Serving frontend from: $(pwd)/../frontend"
 
 # Start simple HTTP server for frontend
 cd ../frontend
-python3 -m http.server 3000 &
+python3 -m http.server 80 &
 FRONTEND_PID=$!
 
 echo "✓ Frontend is running (PID: $FRONTEND_PID)"
@@ -73,8 +73,8 @@ echo "================================"
 echo "✅ Everything is ready!"
 echo "================================"
 echo ""
-echo "Frontend: http://localhost:3000"
-echo "Backend:  http://localhost:5000"
+echo "Frontend: http://localhost:80"
+echo "Backend:  http://localhost:443"
 echo ""
 echo "Press Ctrl+C to stop both services..."
 echo ""

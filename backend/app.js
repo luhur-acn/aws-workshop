@@ -15,7 +15,7 @@ let profile = {
   joinedDate: new Date().toISOString(),
 };
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 443;
 
 // CORS helper - Allow requests from any origin (for workshop purposes)
 // In production, restrict to specific origins

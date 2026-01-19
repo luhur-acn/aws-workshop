@@ -13,7 +13,7 @@ A beginner-friendly full-stack personal profile application with a likes feature
 ```
 ┌─────────────────┐         ┌──────────────────┐
 │  Frontend       │         │  Backend API     │
-│  (Port 80)      │◄───────►│  (Port 5000)     │
+│  (Port 80)      │◄───────►│  (Port 443)     │
 │  HTML/CSS/JS    │         │  Node.js/HTTP    │
 └─────────────────┘         └──────────────────┘
     EC2 Instance
@@ -25,7 +25,7 @@ A beginner-friendly full-stack personal profile application with a likes feature
 
 - AWS EC2 instance (Ubuntu 20.04 or later)
 - SSH access to the instance
-- Security group allowing ports 80 and 5000
+- Security group allowing ports 80 and 443
 
 ### 1. Connect to EC2 Instance
 
@@ -58,7 +58,7 @@ The script will:
 - ✓ Update system packages
 - ✓ Install Node.js
 - ✓ Install dependencies
-- ✓ Setup backend service (port 5000)
+- ✓ Setup backend service (port 443)
 - ✓ Setup frontend service (port 80)
 - ✓ Start both services automatically
 
@@ -176,7 +176,7 @@ sudo systemctl stop workshop-frontend.service
 4. Configure security group:
    - Allow SSH (port 22)
    - Allow HTTP (port 80)
-   - Allow Custom TCP (port 5000)
+   - Allow HTTPS (port 443)
 5. Create/select key pair and launch
 
 ### Wait for Instance to Run
@@ -196,7 +196,7 @@ ssh -i your-key.pem ec2-user@YOUR_EC2_PUBLIC_IP
 The deployment script sets these automatically:
 
 ```bash
-PORT=5000              # Backend port
+PORT=443               # Backend port
 NODE_ENV=production    # Node.js environment
 ```
 
