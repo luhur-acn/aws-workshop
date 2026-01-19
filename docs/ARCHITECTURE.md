@@ -14,7 +14,7 @@
 │  │  │   Service        │    │  Service            │ │   │
 │  │  │                  │    │                     │ │   │
 │  │  │ HTTP Server      │    │ Node.js             │ │   │
-│  │  │ (Port 80)        │    │ (Port 5000)         │ │   │
+│  │  │ (Port 80)        │    │ (Port 443)         │ │   │
 │  │  │                  │◄───►│ /api/todos          │ │   │
 │  │  │ index.html       │    │ /api/health         │ │   │
 │  │  │ CSS, JavaScript  │    │ REST API            │ │   │
@@ -31,7 +31,7 @@
 │                        ▲                                 │
 │                        │ SSH (Port 22)                  │
 │                        │ HTTP (Port 80)                 │
-│                        │ Custom TCP (Port 5000)         │
+│                        │ Custom TCP (Port 443)         │
 └────────────────────────┼─────────────────────────────────┘
                          │
                  ┌───────▼────────┐
@@ -55,7 +55,7 @@
 
 ### Backend
 - **Type**: Node.js REST API
-- **Port**: 5000
+- **Port**: 443
 - **Framework**: Built-in HTTP module (no Express needed for simplicity)
 - **Files**: `backend/app.js`
 - **Responsibilities**:
@@ -177,7 +177,7 @@ DOM updates
 |------|---------|----------|---------|
 | 22 | SSH | SSH | Remote access |
 | 80 | Frontend | HTTP | Web interface |
-| 5000 | Backend | HTTP | REST API |
+| 443 | Backend | HTTP | REST API |
 
 ## 🚀 Deployment
 

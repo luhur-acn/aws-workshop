@@ -436,10 +436,10 @@
     // Determine API URL based on environment
     const API_URL = (() => {
       if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-        return 'http://localhost:5000';
+        return 'http://localhost:443';
       }
-      // For deployed instances, use the same hostname but port 5000
-      return `http://${window.location.hostname}:5000`;
+      // For deployed instances, use the same hostname but port 443
+      return `http://${window.location.hostname}:443`;
     })();
 
     let currentProfile = null;

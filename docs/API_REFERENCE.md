@@ -5,9 +5,9 @@ Complete reference for the Personal Profile Backend API.
 ## Base URL
 
 ```
-http://localhost:5000
+http://localhost:443
 # or on EC2:
-http://YOUR_EC2_PUBLIC_IP:5000
+http://YOUR_EC2_PUBLIC_IP:443
 ```
 
 ## Endpoints
@@ -99,7 +99,7 @@ All fields are optional. Only include fields you want to update.
 
 **Example with cURL:**
 ```bash
-curl -X PUT http://localhost:5000/api/profile \
+curl -X PUT http://localhost:443/api/profile \
   -H "Content-Type: application/json" \
   -d '{
     "name": "Jane Doe",
@@ -147,14 +147,14 @@ Like the profile (once per visitor).
 
 **Example with cURL:**
 ```bash
-curl -X POST http://localhost:5000/api/profile/like \
+curl -X POST http://localhost:443/api/profile/like \
   -H "Content-Type: application/json" \
   -d '{"visitorName":"Alice"}'
 ```
 
 **Example with JavaScript:**
 ```javascript
-fetch('http://localhost:5000/api/profile/like', {
+fetch('http://localhost:443/api/profile/like', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({ visitorName: 'Alice' })
@@ -201,7 +201,7 @@ Unlike the profile (remove a like).
 
 **Example with cURL:**
 ```bash
-curl -X POST http://localhost:5000/api/profile/unlike \
+curl -X POST http://localhost:443/api/profile/unlike \
   -H "Content-Type: application/json" \
   -d '{"visitorName":"Alice"}'
 ```
@@ -283,23 +283,23 @@ const ALLOWED_ORIGINS = process.env.ALLOWED_ORIGINS || 'http://localhost:3000,ht
 
 ```bash
 # Health check
-curl http://localhost:5000/api/health
+curl http://localhost:443/api/health
 
 # Get profile
-curl http://localhost:5000/api/profile
+curl http://localhost:443/api/profile
 
 # Update profile
-curl -X PUT http://localhost:5000/api/profile \
+curl -X PUT http://localhost:443/api/profile \
   -H "Content-Type: application/json" \
   -d '{"name":"New Name"}'
 
 # Like profile
-curl -X POST http://localhost:5000/api/profile/like \
+curl -X POST http://localhost:443/api/profile/like \
   -H "Content-Type: application/json" \
   -d '{"visitorName":"Test User"}'
 
 # Unlike profile
-curl -X POST http://localhost:5000/api/profile/unlike \
+curl -X POST http://localhost:443/api/profile/unlike \
   -H "Content-Type: application/json" \
   -d '{"visitorName":"Test User"}'
 ```
@@ -334,10 +334,10 @@ To address these, add:
 
 ```bash
 # 1. Get current profile
-curl http://localhost:5000/api/profile
+curl http://localhost:443/api/profile
 
 # 2. Update profile
-curl -X PUT http://localhost:5000/api/profile \
+curl -X PUT http://localhost:443/api/profile \
   -H "Content-Type: application/json" \
   -d '{
     "name": "Jane Developer",
@@ -349,15 +349,15 @@ curl -X PUT http://localhost:5000/api/profile \
   }'
 
 # 3. Get updated profile
-curl http://localhost:5000/api/profile
+curl http://localhost:443/api/profile
 
 # 4. Like the profile
-curl -X POST http://localhost:5000/api/profile/like \
+curl -X POST http://localhost:443/api/profile/like \
   -H "Content-Type: application/json" \
   -d '{"visitorName":"John"}'
 
 # 5. Verify like was added
-curl http://localhost:5000/api/profile
+curl http://localhost:443/api/profile
 ```
 
 ---
@@ -367,7 +367,7 @@ curl http://localhost:5000/api/profile
 For issues or questions:
 1. Check the logs: `sudo journalctl -u workshop-backend.service -f`
 2. Verify backend is running: `sudo systemctl status workshop-backend.service`
-3. Test connectivity: `curl http://localhost:5000/api/health`
+3. Test connectivity: `curl http://localhost:443/api/health`
 
 ---
 

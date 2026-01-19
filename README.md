@@ -98,24 +98,24 @@ The backend is a simple REST API for profile management:
 
 **Health Check:**
 ```bash
-curl http://YOUR_EC2_PUBLIC_IP:5000/api/health
+curl http://YOUR_EC2_PUBLIC_IP:443/api/health
 ```
 
 **Get Profile:**
 ```bash
-curl http://YOUR_EC2_PUBLIC_IP:5000/api/profile
+curl http://YOUR_EC2_PUBLIC_IP:443/api/profile
 ```
 
 **Like Profile:**
 ```bash
-curl -X POST http://YOUR_EC2_PUBLIC_IP:5000/api/profile/like \
+curl -X POST http://YOUR_EC2_PUBLIC_IP:443/api/profile/like \
   -H "Content-Type: application/json" \
   -d '{"visitorName":"John Doe"}'
 ```
 
 **Update Profile:**
 ```bash
-curl -X PUT http://YOUR_EC2_PUBLIC_IP:5000/api/profile \
+curl -X PUT http://YOUR_EC2_PUBLIC_IP:443/api/profile \
   -H "Content-Type: application/json" \
   -d '{"name":"Jane Doe","title":"Developer","bio":"Hello!"}'
 ```

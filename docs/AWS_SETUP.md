@@ -32,7 +32,7 @@ Complete step-by-step guide to set up your EC2 instance for the workshop.
    Type          Protocol  Port Range  Source
    SSH           TCP       22          0.0.0.0/0
    HTTP          TCP       80          0.0.0.0/0
-   Custom TCP    TCP       5000        0.0.0.0/0
+   HTTPS         TCP       443         0.0.0.0/0
    ```
    (Note: 0.0.0.0/0 means anywhere - fine for learning, restrict in production)
 
@@ -147,7 +147,7 @@ When you see this, you're done:
 ================================
 
 📱 Frontend: http://54.123.45.67
-🔗 Backend API: http://54.123.45.67:5000/api
+🔗 Backend API: http://54.123.45.67:443/api
 ```
 
 ## 🌐 Step 5: Access Your App

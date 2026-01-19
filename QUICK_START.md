@@ -10,7 +10,7 @@ Log into your AWS Console and:
 3. Edit the security group to allow:
    - SSH (22)
    - HTTP (80)
-   - Custom TCP (5000)
+   - Custom TCP (443)
 
 ### Step 2: Connect to Your Instance
 
@@ -60,7 +60,7 @@ You should see a beautiful personal profile page! 🎉
 
 1. **Check backend health:**
    ```bash
-   curl http://localhost:5000/api/health
+   curl http://localhost:443/api/health
    ```
    You should see: `{"status":"ok","message":"Backend is running on AWS EC2!"}`
 
